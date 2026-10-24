@@ -1,0 +1,36 @@
+{
+    "apps": [
+        {
+            "appType": "process",
+            "exeName": "steam.exe",
+            "path": "C:\\Program Files (x86)\\Steam\\steam.exe",
+            "appDependencyExe":"",
+            "startupTime": 20,
+            "checksUntilTimeout": 5
+        },
+        {
+            "appType": "MyApp",
+            "exeName": "1.0.0",
+            "path": "A sample application",
+            "appDependencyExe": "John Doe",
+            "startupTime": 5,
+            "checksUntilTimeout": 5
+        },
+        {
+            "appType": "AnotherApp",
+            "exeName": "2.1.3",
+            "path": "Another sample application",
+            "appDependencyExe": "Jane Smith",
+            "startupTime": 10,
+            "checksUntilTimeout": 5
+        },
+        {
+            "appType":"steam",
+            "exeName":"vrmonitor.exe",
+            "steamID":250820,
+            "appDependencyExe":"steam.exe",
+            "startupTime": 5,
+            "checksUntilTimeout": 5
+        }
+    ]
+}
