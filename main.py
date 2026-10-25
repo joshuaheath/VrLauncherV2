@@ -16,6 +16,14 @@
 # each application will have a constant of 5 seconds between each atempt of startup
 
 
+import json
+
+# Open the file and load JSON data into a Python dictionary
+def get_json_data(file_path):
+    with open(file_path, 'r') as f:
+        data = json.load(f)
+    return data
+
 def main():
-    
+    data = get_json_data("application.json")
     return 0
