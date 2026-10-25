@@ -16,14 +16,28 @@
 # each application will have a constant of 5 seconds between each atempt of startup
 
 
-import json
+#FUNCTIONS
+# get_json_data(filePath) - returns the json data from the file path
+# is_steam_application(appJson) - returns true if application is a steam application
+# run_steam_application(appJson) - runs steam application based on the appJson data
+# run_regular_application(appJson) - runs regular application based on the appJson data
+# is_dependency_running(dependencyExe) - returns true if application is running based on the appJson data
 
-# Open the file and load JSON data into a Python dictionary
+# run_application(appJson) - runs the application based on if it is a steam application or not
+
+
+import os
+import json
+import subprocess
+import time
+import psutil
+
 def get_json_data(file_path):
     with open(file_path, 'r') as f:
         data = json.load(f)
     return data
 
 def main():
+    
     data = get_json_data("application.json")
     return 0
