@@ -18,26 +18,65 @@
 
 #FUNCTIONS
 # get_json_data(filePath) - returns the json data from the file path
+# is_steamvr_running() - returns true if steamVR is running
 # is_steam_application(appJson) - returns true if application is a steam application
 # run_steam_application(appJson) - runs steam application based on the appJson data
 # run_regular_application(appJson) - runs regular application based on the appJson data
 # is_dependency_running(dependencyExe) - returns true if application is running based on the appJson data
 
+
 # run_application(appJson) - runs the application based on if it is a steam application or not
 
 
-import os
 import json
 import subprocess
 import time
 import psutil
+import logging
 
+
+# Sets up logging to both a file and the console with different log levels
+def setup_logging():
+    file_handler = logging.FileHandler('vr_launcher.log')
+    file_handler.setLevel(logging.DEBUG)
+
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+
+    formatter = logging.Formatter(
+        '%(asctime)s [%(levelname)s] %(message)s',
+        datefmt='%H:%M:%S'
+    )
+    file_handler.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
+
+    logging.basicConfig(level=logging.DEBUG, handlers=[file_handler, console_handler])
+
+# Checks if SteamVR is running by looking for the vrmonitor.exe process
+def is_steamvr_running():
+    logging.info("Checking if SteamVR is running...")
+
+    # Goes though all running processes and checks if vrmonitor.exe is running
+    for process in psutil.process_iter(['processName']):
+        if process.info['processName'] == "vrmonitor.exe":
+            logging.info("SteamVR is running.")
+            return True
+    logging.warning("SteamVR is not running.")
+    return False
+
+# Checks if the application is a Steam application based on the appJson data
+def is_steam_application(appJson):
+    if appJson["appType"] == "steam":
+        return True
+    return False
+
+# Runs a Steam application based on the appJson data
 def get_json_data(file_path):
     with open(file_path, 'r') as f:
         data = json.load(f)
     return data
 
 def main():
-    
+    setup_logging()
     data = get_json_data("application.json")
     return 0

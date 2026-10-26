@@ -31,5 +31,6 @@
     "appDependencyExe":"VRChat.exe",
     "startupTime": 0,
     "checksUntilTimeout": 5
-  }]
+  }
+]
 }
