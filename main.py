@@ -23,6 +23,7 @@
 # run_steam_application(appJson) - runs steam application based on the appJson data
 # run_regular_application(appJson) - runs regular application based on the appJson data
 # is_dependency_running(dependencyExe) - returns true if application is running based on the appJson data
+# launch_applications(appList) - Handles the for loop launch each application after each other
 
 
 # run_application(appJson) - runs the application based on if it is a steam application or not
@@ -36,17 +37,22 @@ import logging
 
 
 # Sets up logging to both a file and the console with different log levels
-def setup_logging():
-    file_handler = logging.FileHandler('vr_launcher.log')
+def setup_logging(logfile):
+
+    # sets up logging to both a file and the console with different log levels
+    file_handler = logging.FileHandler(logfile)
     file_handler.setLevel(logging.DEBUG)
 
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
 
+    # Sets up the log format for both handlers
     formatter = logging.Formatter(
         '%(asctime)s [%(levelname)s] %(message)s',
         datefmt='%H:%M:%S'
     )
+
+    # Assign the formatter to both handlers
     file_handler.setFormatter(formatter)
     console_handler.setFormatter(formatter)
 
@@ -77,6 +83,9 @@ def get_json_data(file_path):
     return data
 
 def main():
-    setup_logging()
+    global DEBUG
+    DEBUG = True
+
+    setup_logging('DEBUG.log')
     data = get_json_data("application.json")
     return 0
